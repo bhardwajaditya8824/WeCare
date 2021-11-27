@@ -15,7 +15,7 @@ CREATE TABLE wecare.caregiver (
  PRIMARY KEY (`caregiver_id`)
  );
  
- CREATE TABLE wecare.Payment (
+ CREATE TABLE wecare.payment (
 `payment_id` int(10) NOT NULL AUTO_INCREMENT,
 `payment_amount` varchar(20) DEFAULT NULL,
 `payment_type` varchar(20) DEFAULT NULL,
