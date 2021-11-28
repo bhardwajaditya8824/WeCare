@@ -29,4 +29,6 @@ public interface IAppointmentService {
 
 	public String applyLeave(@Valid long id);
 
+	public List<Appointment> getAppointmentsbyCaregiverId(long id);
+
 }

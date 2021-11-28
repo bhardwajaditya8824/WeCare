@@ -51,9 +51,16 @@ public class AppointmentController {
 
 		return appointmentService.getAppointmentsbyId(Id);
 	}
+	@CrossOrigin
+	@GetMapping("/getAppointmentsbyCaregiverId")
+	public List<Appointment> getAppointmentsbyCaregiverId(long Id) {
+		System.out.println("Get all data..");
+
+		return appointmentService.getAppointmentsbyCaregiverId(Id);
+	}
 
 	@CrossOrigin
-	@PutMapping("/applyLeave")
+	@GetMapping("/applyLeave")
 	public String applyLeave(@RequestParam @Valid long id) {
 		String response = appointmentService.applyLeave(id);
 
