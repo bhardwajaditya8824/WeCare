@@ -52,6 +52,13 @@ public class AppointmentController {
 		return appointmentService.getAppointmentsbyId(Id);
 	}
 
+	@CrossOrigin
+	@PutMapping("/applyLeave")
+	public String applyLeave(@RequestParam @Valid long id) {
+		String response = appointmentService.applyLeave(id);
+
+		return response;
+	}
 	
 
 	@CrossOrigin

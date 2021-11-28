@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -147,6 +150,28 @@ public class AppointmentService implements IAppointmentService {
 		}
 		
 		return finalAppointmentList;
+	}
+
+	@Override
+	public String applyLeave(@Valid long id) {
+		Optional<Appointment> searchRecord = appointmentRepository.findByAppointmentId(id);
+
+		if (searchRecord.isPresent()) {
+			try {
+
+				Appointment updateAppointment = searchRecord.get();
+
+				updateAppointment.setIsConfirmed("NO");
+
+				appointmentRepository.save(updateAppointment);
+
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+		} else {
+			return "leave applied";
+		}
+		return "applied";
 	}
 	
 	}
