@@ -2,6 +2,8 @@ package com.springboot.wecare.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.springboot.wecare.model.Appointment;
 import com.springboot.wecare.model.Caregiver;
 
@@ -24,5 +26,9 @@ public interface IAppointmentService {
 	public String approveOrDenyAppointment(Long appointmentId, Long clientId);
 
 	public List<Appointment> getAppointmentsbyId(long id);
+
+	public String applyLeave(@Valid long id);
+
+	public List<Appointment> getAppointmentsbyCaregiverId(long id);
 
 }
