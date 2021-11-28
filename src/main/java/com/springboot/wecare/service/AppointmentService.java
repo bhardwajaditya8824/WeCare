@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,6 +71,7 @@ public class AppointmentService implements IAppointmentService {
 				updateAppointment.setCaregiverID(appointment.getCaregiverID());
 				updateAppointment.setClientID(appointment.getClientID());
 				updateAppointment.setManagerID(appointment.getManagerID());
+				
 
 				appointmentRepository.save(updateAppointment);
 
@@ -148,8 +152,54 @@ public class AppointmentService implements IAppointmentService {
 		
 		return finalAppointmentList;
 	}
-	
+
+	@Override
+	public String applyLeave(@Valid long id) {
+		Optional<Appointment> searchRecord = appointmentRepository.findByAppointmentId(id);
+
+		if (searchRecord.isPresent()) {
+			try {
+
+				Appointment updateAppointment = searchRecord.get();
+
+				updateAppointment.setIsConfirmed("NO");
+
+				appointmentRepository.save(updateAppointment);
+
+			} catch (Exception e) {
+				return e.getMessage();
+			}
+		} else {
+			return "leave applied";
+		}
+		return "applied";
 	}
 
-
-
+	@Override
+	public List<Appointment> getAppointmentsbyCaregiverId(long id) {
+		List<Appointment> appointmentList = new ArrayList();
+		List<Appointment> finalAppointmentList = new ArrayList();
+		appointmentList=appointmentRepository.findAll();
+		
+		
+		for(Appointment a:appointmentList )
+		{
+			if(a.getCaregiverID()==id) {
+				
+				if(a.getIsConfirmed().equalsIgnoreCase("NO"))
+				{
+				   
+				
+				}
+				else
+				{
+					finalAppointmentList.add(a);
+				}
+				
+			}
+		}
+		
+		return finalAppointmentList;
+	}
+	
+	}
